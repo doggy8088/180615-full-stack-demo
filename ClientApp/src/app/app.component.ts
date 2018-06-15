@@ -2,8 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { NgModel } from '@angular/forms';
 
-import { combineLatest } from "rxjs";
-import { debounceTime, mergeMap } from "rxjs/operators";
+import { combineLatest, Observable } from 'rxjs';
+import { debounceTime, mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +12,7 @@ import { debounceTime, mergeMap } from "rxjs/operators";
 })
 export class AppComponent {
   title = 'app';
-  data: any;
+  data$: Observable<any>;
 
   keyword = '';
   @ViewChild('tKeyword') tKeyword: NgModel;
@@ -25,28 +25,20 @@ export class AppComponent {
 
   constructor(private http: HttpClient) {}
   ngOnInit(): void {
-    this.http.get('/api/spots').subscribe((value: any) => {
-      this.data = value;
-    });
+    this.data$ = this.http.get('/api/spots');
   }
 
   ngAfterViewInit() {
-
-    combineLatest(
+    this.data$ = combineLatest(
       this.tKeyword.valueChanges,
       this.tZone.valueChanges,
       this.tTicketInfo.valueChanges
-    )
-    .pipe(
+    ).pipe(
       debounceTime(500),
       mergeMap(evt => {
         let [k, z, t] = evt;
-        return this.http.get('/api/spots?k=' + k + '&z=' + z + '&t=' + t)
+        return this.http.get('/api/spots?k=' + k + '&z=' + z + '&t=' + t);
       })
-    )
-    .subscribe((value: any) => {
-        this.data = value;
-    });
-
+    );
   }
 }

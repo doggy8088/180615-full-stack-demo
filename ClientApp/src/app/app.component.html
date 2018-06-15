@@ -98,7 +98,7 @@
       </button>
     </div>
 
-    <a *ngFor="let item of data" class="card flex-xl-row my-4" id="card-link" href="page.html" style="text-decoration:none; color:#000">
+    <a *ngFor="let item of data$|async" class="card flex-xl-row my-4" id="card-link" href="page.html" style="text-decoration:none; color:#000">
       <div class="bg-cover bg-xl-cover bg-md-cover rounded-xl-left rounded-top"
         [style.background-image]="'url('+item.Picture1+')'"
         ></div>
