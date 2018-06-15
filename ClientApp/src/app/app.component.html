@@ -1,0 +1,153 @@
+<nav class="navbar navbar-dark bg-primary">
+  <div class="container d-flex flex-column flex-md-row">
+
+    <div class="container-md-left">
+      <a class="navbar-brand ml-md-5" href="index.html">HaveFun</a>
+    </div>
+    <div class="pl-md-5 flex-1">
+      <form style="max-width:400px">
+        <div style="position:relative">
+          <i class="fas fa-search" style="color:#fff; position:absolute; top:10px "></i>
+          <input name="keyword" [(ngModel)]="keyword" #tKeyword="ngModel" class="form-control mr-sm-2 pl-4 bg-primary search-1" type="search" placeholder="Search" aria-label="Search">
+        </div>
+      </form>
+    </div>
+
+  </div>
+</nav>
+<div class="container d-flex flex-column flex-md-row">
+  <div class="container-md-left ">
+    <div class="h4 d-flex d-md-none justify-content-center mt-2">
+      <a data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" style="text-decoration:none;">
+        <span class="mr-2">Add filter</span>
+        <i class="fas fa-plus"></i>
+      </a>
+    </div>
+
+    <div class="collapse d-md-block" id="collapseExample">
+      <div class="px-5 py-4 border-bottom filter">
+
+        <div class="h5">
+          遊覽區域
+        </div>
+
+        <div>
+          <select class="form-control" name="zone" [(ngModel)]="zone" #tZone="ngModel">
+            <option>三民區</option>
+            <option>仁武區</option>
+            <option>內門區</option>
+            <option>六龜區</option>
+            <option>前金區</option>
+            <option>前鎮區</option>
+            <option>大樹區</option>
+            <option>小港區</option>
+            <option>岡山區</option>
+            <option>左營區</option>
+            <option>新興區</option>
+            <option>旗津區</option>
+            <option>杉林區</option>
+            <option>桃源區</option>
+            <option>梓官區</option>
+            <option>楠梓區</option>
+            <option>永安區</option>
+            <option>田寮區</option>
+            <option>甲仙區</option>
+            <option>美濃區</option>
+            <option>苓雅區</option>
+            <option>茂林區</option>
+            <option>茄萣區</option>
+            <option>那瑪夏</option>
+            <option>高雄市</option>
+            <option>鳳山區</option>
+            <option>鼓山區</option>
+          </select>
+        </div>
+
+
+      </div>
+
+      <div class="px-5 py-4 border-bottom filter">
+        <div class="h5">票價資訊</div>
+        <select class="form-control" name="ticketInfo" [(ngModel)]="ticketInfo" #tTicketInfo="ngModel">
+          <option value="0">DiY手做教學200元人提供用餐服務150人</option>
+          <option value="1">Empty</option>
+          <option value="2">免費參觀</option>
+          <option value="3">新台幣50元</option>
+        </select>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="container-fluid pl-md-5 py-md-4 flex-1 px-0">
+    <div class="d-none d-md-block">
+      <p class="h4">Showing
+        <span class="text-primary">15</span> results by...</p>
+
+      <button type="button" class="btn btn-outline-primary btn-rounded" *ngIf="zone">
+        {{zone}}
+        <i class="far fa-times-circle" (click)="zone=''"></i>
+      </button>
+      <button type="button" class="btn btn-outline-primary btn-rounded" *ngIf="ticketInfo">
+        {{ticketInfo}}
+        <i class="far fa-times-circle" (click)="ticketInfo=''"></i>
+      </button>
+      <button type="button" class="btn btn-outline-primary btn-rounded" *ngIf="keyword">
+        {{keyword}}
+        <i class="far fa-times-circle" (click)="keyword=''"></i>
+      </button>
+    </div>
+
+    <a *ngFor="let item of data" class="card flex-xl-row my-4" id="card-link" href="page.html" style="text-decoration:none; color:#000">
+      <div class="bg-cover bg-xl-cover bg-md-cover rounded-xl-left rounded-top"
+        [style.background-image]="'url('+item.Picture1+')'"
+        ></div>
+      <div class="card-body flex-1">
+        <h4 class="text-primary">
+          {{item.Name}}
+        </h4>
+        <p>
+          {{item.Description}}
+        </p>
+        <p class="font-weight-bold">
+          {{item.Add}}
+        </p>
+        <span class="card-xl-icon card-icon">
+          <i class="fas fa-map-marker-alt"></i>
+          <span class="text-black-50">{{item.Zone}}</span>
+        </span>
+        <span class="card-xl-icon card-icon">
+          <i class="fas fa-dollar-sign"></i>
+          <span class="text-black-50">{{item.Ticketinfo}}</span>
+        </span>
+        <span class="card-xl-icon card-icon">
+          <i class="far fa-calendar-alt"></i>
+          <span class="text-black-50">{{item.Opentime}}</span>
+        </span>
+
+      </div>
+    </a>
+
+
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center justify-content-md-end">
+        <li class="page-item disabled">
+          <a class="page-link" href="#" tabindex="-1">Previous</a>
+        </li>
+        <li class="page-item active">
+          <a class="page-link" href="#">1</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="#">2</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="#">3</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="#">Next</a>
+        </li>
+      </ul>
+    </nav>
+
+  </div>
+</div>
