@@ -37,7 +37,7 @@ export class AppComponent {
       debounceTime(500),
       mergeMap(evt => {
         let [k, z, t] = evt;
-        return this.http.get('/api/spots?k=' + k + '&z=' + z + '&t=' + t);
+        return this.http.get(`/api/spots?k=${k}&z=${z}&t=${t}`);
       })
     );
   }
