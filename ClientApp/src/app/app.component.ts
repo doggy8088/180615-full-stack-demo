@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { NgModel } from '@angular/forms';
 
 import { combineLatest } from "rxjs";
-import { debounceTime } from "rxjs/operators";
+import { debounceTime, mergeMap } from "rxjs/operators";
 
 @Component({
   selector: 'app-root',
@@ -38,13 +38,14 @@ export class AppComponent {
       this.tTicketInfo.valueChanges
     )
     .pipe(
-      debounceTime(500)
+      debounceTime(500),
+      mergeMap(evt => {
+        let [k, z, t] = evt;
+        return this.http.get('/api/spots?k=' + k + '&z=' + z + '&t=' + t)
+      })
     )
-    .subscribe(evt => {
-      let [k, z, t] = evt;
-      this.http.get('/api/spots?k=' + k + '&z=' + z + '&t=' + t).subscribe((value: any) => {
+    .subscribe((value: any) => {
         this.data = value;
-      });
     });
 
   }
