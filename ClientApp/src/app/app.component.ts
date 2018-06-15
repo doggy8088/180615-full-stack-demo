@@ -35,9 +35,7 @@ export class AppComponent {
       this.tTicketInfo.valueChanges
     ).pipe(
       debounceTime(500),
-      mergeMap(([k, z, t]) => {
-        return this.http.get(`/api/spots?k=${k}&z=${z}&t=${t}`);
-      })
+      mergeMap([k, z, t] => this.http.get(`/api/spots?k=${k}&z=${z}&t=${t}`))
     );
   }
 }
